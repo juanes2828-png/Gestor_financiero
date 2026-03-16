@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,600;0,900;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
 :root {
   --bg:        #0d0f14;
@@ -322,9 +323,9 @@ tr:hover td{background:rgba(255,255,255,.02)}
     <div class="dropzone" id="dropzone" onclick="document.getElementById('xml-input').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleDrop(event)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
       <p>Arrastra el XML aquí o <strong>haz clic para seleccionar</strong></p>
-      <p style="font-size:12px;margin-top:6px">Formato AttachedDocument DIAN · UBL 2.1</p>
+      <p style="font-size:12px;margin-top:6px">Formatos aceptados: <strong style="color:var(--accent)">.xml</strong> · <strong style="color:var(--accent2)">.zip</strong> (con XML dentro)</p>
     </div>
-    <input type="file" id="xml-input" accept=".xml" style="display:none" onchange="loadXML(this.files[0])">
+    <input type="file" id="xml-input" accept=".xml,.zip" style="display:none" onchange="loadXML(this.files[0])">
   </div>
   </div><!-- /fact-xml-panel -->
 
@@ -347,19 +348,12 @@ tr:hover td{background:rgba(255,255,255,.02)}
       <div class="field"><label>Fecha</label><input type="date" id="mg-fecha"></div>
       <div class="field"><label>Cuenta / Medio de pago</label>
         <select id="mg-cuenta">
-          <option value="Visa signature">Visa signature</option>
-          <option value="Mastercard black">Mastercard black</option>
-          <option value="Terpel Colpatria">Terpel Colpatria</option>
-          <option value="Débito Bancolombia">Débito Bancolombia</option>
-          <option value="Débito Davivienda">Débito Davivienda</option>
-          <option value="Efectivo">Efectivo</option>
-          <option value="Nequi">Nequi</option>
-          <option value="Daviplata">Daviplata</option>
-          <option value="Claro Pay">Claro Pay</option>
-          <option value="Nubank">Nubank</option>
-          <option value="Préstamos">Préstamos</option>
-          <option value="Préstamos personales">Préstamos personales</option>
-          <option value="Inversiones">Inversiones</option>
+          <option value="Cuenta bancaria">Cuenta bancaria</option>
+          <option value="Caja (efectivo)">Caja (efectivo)</option>
+          <option value="Tarjeta crédito">Tarjeta crédito</option>
+          <option value="Tarjeta débito">Tarjeta débito</option>
+          <option value="Nequi / Daviplata">Nequi / Daviplata</option>
+          <option value="Préstamo">Préstamo</option>
         </select>
       </div>
       <div class="field span-3"><label>Observaciones</label><input type="text" id="mg-obs" placeholder="Opcional"></div>
@@ -481,7 +475,7 @@ tr:hover td{background:rgba(255,255,255,.02)}
           <option value="Préstamos personales">Préstamos personales</option>
         </select>
       </div>
-      <div class="field"><label>Categoría</label placeholder="Salario">
+      <div class="field"><label>Categoría</label>
         <select id="ing-cat">
           <option value="Salario">Salario</option>
           <option value="Subsidio de transporte">Subsidio de transporte</option>
@@ -524,44 +518,44 @@ tr:hover td{background:rgba(255,255,255,.02)}
       <div class="field"><label>Fecha</label><input type="date" id="mov-fecha"></div>
       <div class="field"><label>Tipo de movimiento</label>
         <select id="mov-tipo" onchange="updateMovTipo()">
-          <option value="Transferencia">Transferencia</option>
-          <option value="Préstamo a otros">Préstamo a otros</option>
-          <option value="Favor">Favor</option>
+          <option value="Transferencia">Transferencia entre cuentas</option>
+          <option value="Pago factura">Pago de factura (CxP)</option>
+          <option value="Cobro cliente">Cobro a cliente (CxC)</option>
         </select>
       </div>
       <div class="field"><label>Monto (COP)</label><input type="number" id="mov-monto" placeholder="0" min="0"></div>
       <div class="field"><label>Cuenta Origen <span style="color:var(--red)">(-)</span></label>
         <select id="mov-origen">
           <option value="Visa signature">Visa signature</option>
-            <option value="Mastercard black">Mastercard black</option>
-            <option value="Terpel Colpatria">Terpel Colpatria</option>
-            <option value="Débito Bancolombia">Débito Bancolombia</option>
-            <option value="Débito Davivienda">Débito Davivienda</option>
-            <option value="Efectivo">Efectivo</option>
-            <option value="Nequi">Nequi</option>
-            <option value="Daviplata">Daviplata</option>
-            <option value="Claro Pay">Claro Pay</option>
-            <option value="Nubank">Nubank</option>
-            <option value="Préstamos">Préstamos</option>
-            <option value="Préstamos personales">Préstamos personales</option>
-            <option value="Inversiones">Inversiones</option>
+          <option value="Mastercard black">Mastercard black</option>
+          <option value="Terpel Colpatria">Terpel Colpatria</option>
+          <option value="Débito Bancolombia">Débito Bancolombia</option>
+          <option value="Débito Davivienda">Débito Davivienda</option>
+          <option value="Efectivo">Efectivo</option>
+          <option value="Nequi">Nequi</option>
+          <option value="Daviplata">Daviplata</option>
+          <option value="Claro Pay">Claro Pay</option>
+          <option value="Nubank">Nubank</option>
+          <option value="Préstamos">Préstamos</option>
+          <option value="Préstamos personales">Préstamos personales</option>
+          <option value="Inversiones">Inversiones</option>
         </select>
       </div>
       <div class="field"><label>Cuenta Destino <span style="color:var(--accent)">( +)</span></label>
         <select id="mov-destino">
           <option value="Visa signature">Visa signature</option>
-            <option value="Mastercard black">Mastercard black</option>
-            <option value="Terpel Colpatria">Terpel Colpatria</option>
-            <option value="Débito Bancolombia">Débito Bancolombia</option>
-            <option value="Débito Davivienda">Débito Davivienda</option>
-            <option value="Efectivo">Efectivo</option>
-            <option value="Nequi">Nequi</option>
-            <option value="Daviplata">Daviplata</option>
-            <option value="Claro Pay">Claro Pay</option>
-            <option value="Nubank">Nubank</option>
-            <option value="Préstamos">Préstamos</option>
-            <option value="Préstamos personales">Préstamos personales</option>
-            <option value="Inversiones">Inversiones</option>
+          <option value="Mastercard black">Mastercard black</option>
+          <option value="Terpel Colpatria">Terpel Colpatria</option>
+          <option value="Débito Bancolombia">Débito Bancolombia</option>
+          <option value="Débito Davivienda">Débito Davivienda</option>
+          <option value="Efectivo">Efectivo</option>
+          <option value="Nequi">Nequi</option>
+          <option value="Daviplata">Daviplata</option>
+          <option value="Claro Pay">Claro Pay</option>
+          <option value="Nubank">Nubank</option>
+          <option value="Préstamos">Préstamos</option>
+          <option value="Préstamos personales">Préstamos personales</option>
+          <option value="Inversiones">Inversiones</option>
         </select>
       </div>
       <div class="field"><label>Referencia</label><input type="text" id="mov-ref" placeholder="Número de transacción"></div>
@@ -590,7 +584,7 @@ tr:hover td{background:rgba(255,255,255,.02)}
     <div class="form-grid cols-3">
       <div class="field"><label>Proveedor</label><input type="text" id="ins-proveedor" placeholder="Nombre del proveedor"></div>
       <div class="field"><label>Código ítem</label><input type="text" id="ins-codigo" placeholder="Ej: 80"></div>
-      <div class="field"><label>Nombre del insumo</label><input type="text" id="ins-nombre" placeholder="Ej: Arroz"></div>
+      <div class="field"><label>Nombre del insumo</label><input type="text" id="ins-nombre" placeholder="Ej: COCA COLA"></div>
       <div class="field"><label>Categoría</label>
         <select id="ins-cat">
           <option value="Bus">Bus</option>
@@ -902,11 +896,85 @@ function handleDrop(e) {
   if(file) loadXML(file);
 }
 
-function loadXML(file) {
+async function loadXML(file) {
   if(!file) return;
+  const name = file.name.toLowerCase();
+
+  // ZIP: extract first .xml found inside
+  if(name.endsWith('.zip')) {
+    toast('Leyendo archivo ZIP...', 'info');
+    try {
+      const zip = await JSZip.loadAsync(file);
+      const xmlFiles = Object.keys(zip.files).filter(n =>
+        n.toLowerCase().endsWith('.xml') && !zip.files[n].dir
+      );
+      if(xmlFiles.length === 0) {
+        toast('El ZIP no contiene ningún archivo .xml', 'error'); return;
+      }
+      if(xmlFiles.length === 1) {
+        const text = await zip.files[xmlFiles[0]].async('string');
+        toast(`XML encontrado: ${xmlFiles[0]}`, 'info');
+        parseXML(text);
+      } else {
+        // Multiple XMLs: show picker
+        showZipPicker(zip, xmlFiles);
+      }
+    } catch(err) {
+      toast('Error al leer el ZIP: ' + err.message, 'error');
+    }
+    return;
+  }
+
+  // Plain XML
   const reader = new FileReader();
   reader.onload = e => parseXML(e.target.result);
   reader.readAsText(file, 'UTF-8');
+}
+
+function showZipPicker(zip, xmlFiles) {
+  // Build a small modal to let user pick which XML to load
+  const existing = document.getElementById('zip-picker-modal');
+  if(existing) existing.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'zip-picker-modal';
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:600;display:flex;align-items:center;justify-content:center';
+  modal.innerHTML = `
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:28px;width:480px;max-width:95vw">
+      <h3 style="font-family:var(--serif);font-size:17px;font-weight:600;margin-bottom:8px">Múltiples XML en el ZIP</h3>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:18px">El ZIP contiene ${xmlFiles.length} archivos XML. Selecciona cuál cargar:</p>
+      <div style="display:flex;flex-direction:column;gap:8px;max-height:260px;overflow-y:auto">
+        ${xmlFiles.map((f, i) => `
+          <div onclick="pickZipXml(${i})" style="padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:13px;font-family:var(--mono);color:var(--accent2);transition:background .15s"
+               onmouseover="this.style.background='rgba(96,165,250,.08)'" onmouseout="this.style.background='var(--surface)'">
+            📄 ${f}
+          </div>`).join('')}
+      </div>
+      <button onclick="document.getElementById('zip-picker-modal').remove()" 
+              style="margin-top:16px;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:8px 16px;cursor:pointer;font-size:13px">
+        Cancelar
+      </button>
+    </div>`;
+
+  // Store zip ref for picker callback
+  modal._zip = zip;
+  modal._files = xmlFiles;
+  document.body.appendChild(modal);
+}
+
+async function pickZipXml(idx) {
+  const modal = document.getElementById('zip-picker-modal');
+  if(!modal) return;
+  const zip   = modal._zip;
+  const fname = modal._files[idx];
+  modal.remove();
+  try {
+    const text = await zip.files[fname].async('string');
+    toast(`Cargando: ${fname}`, 'info');
+    parseXML(text);
+  } catch(err) {
+    toast('Error al extraer el XML: ' + err.message, 'error');
+  }
 }
 
 function parseXML(text) {
@@ -1152,7 +1220,7 @@ async function saveInsumo() {
 
 function clearInsumoForm() {
   ['ins-proveedor','ins-codigo','ins-nombre','ins-subcat','ins-um'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('ins-cat').value = 'Bus';
+  document.getElementById('ins-cat').value = 'Bebidas';
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -1574,7 +1642,7 @@ function removeManualItem(idx) {
 }
 
 function renderManualItems() {
-  const cats = ['Bus','Taxi o Plataformas','Metro','Gasolina','Parqueadero','Mantenimiento','SOAT','Revisión Técnico mecánica','Bicicleta','Tiquetes aéreos','Mercado','Carne','Fruver','Comida por fuera','Mecato','Servicios públicos','Internet','Línea celular','Arriendo','Aseo hogar','Implementos hogar','Mascota','Gimnasio','Medicamentos - Citas','Aseo personal','Motilada','Streaming','Clase de baile','Cine - teatro - eventos','Playstation','Xbox','Tecnología','Ocio y otros','Intereses por deuda','Impuestos','Cuota de manejo','Seguro de vida','EPS','AFP','Regalo','Ropa','Ajuste'];
+  const cats = ['Bebidas','Alimentos','Insumos','Servicios','Otros'];
   const catOpts = cats.map(c => `<option value="${c}">${c}</option>`).join('');
   document.getElementById('mg-items-body').innerHTML = manualItems.map((it, idx) => `
     <tr>
