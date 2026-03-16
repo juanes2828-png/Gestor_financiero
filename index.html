@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestor Financiero · La Curva del Gordo</title>
+<title>💸​ Mi Gestor Financiero</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,600;0,900;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -169,11 +169,48 @@ tr:hover td{background:rgba(255,255,255,.02)}
 .modal h3{font-family:var(--serif);font-size:18px;font-weight:600;margin-bottom:20px}
 
 /* ── Category colors ── */
-.cat-Bebidas{background:rgba(96,165,250,.12);color:var(--accent2)}
-.cat-Alimentos{background:rgba(74,222,128,.12);color:var(--accent)}
-.cat-Insumos{background:rgba(244,114,182,.12);color:var(--accent3)}
-.cat-Servicios{background:rgba(251,146,60,.12);color:var(--warn)}
-.cat-Otros{background:rgba(107,114,128,.15);color:var(--muted)}
+.cat-Bus{background:rgba(96,165,250,.12);color:var(--accent2)}
+.cat-Taxi_o_Plataformas{background:rgba(96,165,250,.12);color:var(--accent2)}
+.cat-Metro{background:rgba(96,165,250,.12);color:var(--accent2)}
+.cat-Gasolina{background:rgba(96,165,250,.12);color:var(--accent2)}
+.cat-Parqueadero{background:rgba(96,165,250,.12);color:var(--accent2)}
+.cat-Mantenimiento{background:rgba(96,165,250,.12);color:var(--accent2)}
+.cat-SOAT{background:rgba(96,165,250,.12);color:var(--accent2)}
+.cat-Revisión_Tecnico_Mecánica{background:rgba(96,165,250,.12);color:var(--accent2)}
+.cat-Bicicleta{background:rgba(96,165,250,.12);color:var(--accent2)}
+.cat-Tiquetes_aéreos{background:rgba(96,165,250,.12);color:var(--accent2)}
+.cat-Mercado{background:rgba(74,222,128,.12);color:var(--accent)}
+.cat-Carne{background:rgba(74,222,128,.12);color:var(--accent)}
+.cat-Fruver{background:rgba(74,222,128,.12);color:var(--accent)}
+.cat-Comida_por_fuera{background:rgba(74,222,128,.12);color:var(--accent)}
+.cat-Mecato{background:rgba(74,222,128,.12);color:var(--accent)}
+.cat-Servicios_públicos{background:rgba(244,114,182,.12);color:var(--accent3)}
+.cat-Internet{background:rgba(244,114,182,.12);color:var(--accent3)}
+.cat-Línea_celular{background:rgba(244,114,182,.12);color:var(--accent3)}
+.cat-Arriendo{background:rgba(244,114,182,.12);color:var(--accent3)}
+.cat-Aseo_hogar{background:rgba(244,114,182,.12);color:var(--accent3)}
+.cat-Implementos_hogar{background:rgba(244,114,182,.12);color:var(--accent3)}
+.cat-Mascota{background:rgba(244,114,182,.12);color:var(--accent3)}
+.cat-Gimnasio{background:rgba(251,146,60,.12);color:var(--warn)}
+.cat-Medicamentos_citas{background:rgba(251,146,60,.12);color:var(--warn)}
+.cat-Aseo_personal{background:rgba(251,146,60,.12);color:var(--warn)}
+.cat-Motilada{background:rgba(251,146,60,.12);color:var(--warn)}
+.cat-Streaming{background:rgba(107,114,128,.15);color:var(--muted)}
+.cat-Cine_-_teatro_-_eventos{background:rgba(107,114,128,.15);color:var(--muted)}
+.cat-Playstation{background:rgba(107,114,128,.15);color:var(--muted)}
+.cat-Xbox{background:rgba(107,114,128,.15);color:var(--muted)}
+.cat-Tecnología{background:rgba(107,114,128,.15);color:var(--muted)}
+.cat-Ocio_y_otros{background:rgba(107,114,128,.15);color:var(--muted)}
+.cat-Clase_de_baile{background:rgba(107,114,128,.15);color:var(--muted)}
+.cat-Intereses_por_deuda{background:rgba(84, 85, 6, 0.15);color:var(--muted)}
+.cat-Impuestos{background:rgba(84, 85, 6, 0.15);color:var(--muted)}
+.cat-Cuota_de_manejo{background:rgba(84, 85, 6, 0.15);color:var(--muted)}
+.cat-Seguro_de_vida{background:rgba(84, 85, 6, 0.15);color:var(--muted)}
+.cat-EPS{background:rgba(121, 9, 9, 0.281);color:var(--muted)}
+.cat-AFP{background:rgba(121, 9, 9, 0.281);color:var(--muted)}
+.cat-Regalo{background:rgba(9, 121, 112, 0.281);color:var(--muted)}
+.cat-Ropa{background:rgba(9, 121, 112, 0.281);color:var(--muted)}
+.cat-Ajuste{background:rgba(9, 121, 112, 0.281);color:var(--muted)}
 </style>
 </head>
 <body>
@@ -264,8 +301,22 @@ tr:hover td{background:rgba(255,255,255,.02)}
 <div id="page-facturas" class="page">
   <div class="page-header">
     <h2>Facturas de Gasto</h2>
-    <p>Carga el XML de la DIAN para extraer y registrar automáticamente</p>
+    <p>Carga el XML de la DIAN o registra un gasto manual sin factura electrónica</p>
   </div>
+  <!-- Tabs -->
+  <div class="tabs" id="fact-tabs">
+    <div class="tab active" id="tab-xml" onclick="switchFactTab('xml')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;margin-right:5px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      XML DIAN
+    </div>
+    <div class="tab" id="tab-manual" onclick="switchFactTab('manual')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;margin-right:5px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      Gasto Manual
+    </div>
+  </div>
+
+  <!-- XML Panel -->
+  <div id="fact-xml-panel">
   <div class="panel">
     <div class="panel-title">Cargar XML DIAN</div>
     <div class="dropzone" id="dropzone" onclick="document.getElementById('xml-input').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleDrop(event)">
@@ -275,6 +326,70 @@ tr:hover td{background:rgba(255,255,255,.02)}
     </div>
     <input type="file" id="xml-input" accept=".xml" style="display:none" onchange="loadXML(this.files[0])">
   </div>
+  </div><!-- /fact-xml-panel -->
+
+  <!-- Manual Gasto Panel -->
+  <div id="fact-manual-panel" style="display:none">
+  <div class="panel">
+    <div class="panel-title">Gasto Manual <span class="badge">sin factura electrónica</span></div>
+    <!-- EMISOR -->
+    <p style="font-size:11px;font-family:var(--mono);color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px">Datos del proveedor</p>
+    <div class="form-grid cols-3" style="margin-bottom:18px">
+      <div class="field"><label>Razón Social</label><input type="text" id="mg-emisorRS" placeholder="Nombre del proveedor"></div>
+      <div class="field"><label>Nombre Comercial</label><input type="text" id="mg-emisorNC" placeholder="Nombre comercial"></div>
+      <div class="field"><label>NIT / Cédula</label><input type="text" id="mg-nit" placeholder="900123456-7"></div>
+      <div class="field span-3"><label>Dirección</label><input type="text" id="mg-dir" placeholder="Calle, ciudad"></div>
+    </div>
+    <!-- FACTURA -->
+    <p style="font-size:11px;font-family:var(--mono);color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px">Datos del comprobante</p>
+    <div class="form-grid cols-3" style="margin-bottom:18px">
+      <div class="field"><label>N° Factura / Recibo</label><input type="text" id="mg-numero" placeholder="Ej: REC-001 o sin número"></div>
+      <div class="field"><label>Fecha</label><input type="date" id="mg-fecha"></div>
+      <div class="field"><label>Cuenta / Medio de pago</label>
+        <select id="mg-cuenta">
+          <option value="Visa signature">Visa signature</option>
+          <option value="Mastercard black">Mastercard black</option>
+          <option value="Terpel Colpatria">Terpel Colpatria</option>
+          <option value="Débito Bancolombia">Débito Bancolombia</option>
+          <option value="Débito Davivienda">Débito Davivienda</option>
+          <option value="Efectivo">Efectivo</option>
+          <option value="Nequi">Nequi</option>
+          <option value="Daviplata">Daviplata</option>
+          <option value="Claro Pay">Claro Pay</option>
+          <option value="Nubank">Nubank</option>
+          <option value="Préstamos">Préstamos</option>
+          <option value="Préstamos personales">Préstamos personales</option>
+          <option value="Inversiones">Inversiones</option>
+        </select>
+      </div>
+      <div class="field span-3"><label>Observaciones</label><input type="text" id="mg-obs" placeholder="Opcional"></div>
+    </div>
+    <!-- ÍTEMS -->
+    <p style="font-size:11px;font-family:var(--mono);color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px">Ítems del gasto</p>
+    <div class="tbl-wrap" style="margin-bottom:12px">
+      <table>
+        <thead><tr><th>Cód.</th><th>Descripción</th><th>Cant.</th><th>V. Unitario</th><th>Total</th><th>Categoría</th><th></th></tr></thead>
+        <tbody id="mg-items-body"></tbody>
+      </table>
+    </div>
+    <button class="btn btn-outline btn-sm" onclick="addManualItem()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+      Agregar ítem
+    </button>
+    <!-- TOTAL -->
+    <div style="margin-top:18px;padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;display:flex;justify-content:space-between;align-items:center">
+      <span style="font-family:var(--mono);font-size:12px;color:var(--muted)">TOTAL GASTO</span>
+      <span class="amount-neg" style="font-size:20px;font-family:var(--mono);font-weight:600" id="mg-total-display">$0</span>
+    </div>
+    <div class="btn-group" style="margin-top:16px">
+      <button class="btn btn-primary" onclick="saveGastoManual()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Guardar Gasto
+      </button>
+      <button class="btn btn-secondary" onclick="clearManualForm()">Limpiar</button>
+    </div>
+  </div>
+  </div><!-- /fact-manual-panel -->
 
   <div id="preview-section">
     <div class="preview-header">
@@ -301,12 +416,19 @@ tr:hover td{background:rgba(255,255,255,.02)}
       <div class="form-grid" style="max-width:500px">
         <div class="field"><label>Cuenta / Medio de pago</label>
           <select id="fact-cuenta">
-            <option value="Cuenta bancaria">Cuenta bancaria</option>
-            <option value="Caja (efectivo)">Caja (efectivo)</option>
-            <option value="Tarjeta crédito">Tarjeta crédito</option>
-            <option value="Tarjeta débito">Tarjeta débito</option>
-            <option value="Nequi / Daviplata">Nequi / Daviplata</option>
-            <option value="Préstamo">Préstamo</option>
+            <option value="Visa signature">Visa signature</option>
+            <option value="Mastercard black">Mastercard black</option>
+            <option value="Terpel Colpatria">Terpel Colpatria</option>
+            <option value="Débito Bancolombia">Débito Bancolombia</option>
+            <option value="Débito Davivienda">Débito Davivienda</option>
+            <option value="Efectivo">Efectivo</option>
+            <option value="Nequi">Nequi</option>
+            <option value="Daviplata">Daviplata</option>
+            <option value="Claro Pay">Claro Pay</option>
+            <option value="Nubank">Nubank</option>
+            <option value="Préstamos">Préstamos</option>
+            <option value="Préstamos personales">Préstamos personales</option>
+            <option value="Inversiones">Inversiones</option>
           </select>
         </div>
         <div class="field"><label>Observaciones</label><input type="text" id="fact-obs" placeholder="Opcional"></div>
@@ -325,7 +447,7 @@ tr:hover td{background:rgba(255,255,255,.02)}
     <div class="panel-title">Historial de Facturas</div>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>Factura</th><th>Fecha</th><th>Proveedor</th><th>NIT</th><th>Ítems</th><th>Total</th><th>Cuenta</th><th>DIAN</th></tr></thead>
+        <thead><tr><th>Factura</th><th>Fecha</th><th>Proveedor</th><th>NIT</th><th>Ítems</th><th>Total</th><th>Cuenta</th><th>Origen</th></tr></thead>
         <tbody id="hist-facturas"></tbody>
       </table>
     </div>
@@ -344,18 +466,36 @@ tr:hover td{background:rgba(255,255,255,.02)}
       <div class="field"><label>Monto (COP)</label><input type="number" id="ing-monto" placeholder="0" min="0"></div>
       <div class="field"><label>Cuenta destino</label>
         <select id="ing-cuenta">
-          <option value="Cuenta bancaria">Cuenta bancaria</option>
-          <option value="Caja (efectivo)">Caja (efectivo)</option>
-          <option value="Tarjeta crédito">Tarjeta crédito</option>
-          <option value="Tarjeta débito">Tarjeta débito</option>
-          <option value="Nequi / Daviplata">Nequi / Daviplata</option>
+          <option value="Débito Davivienda">Débito Davivienda</option>
+          <option value="Débito Bancolombia">Débito Bancolombia</option>
+          <option value="Terpel Colpatria">Terpel Colpatria</option>
+          <option value="Efectivo">Efectivo</option>
+          <option value="Claro Pay">Claro Pay</option>
+          <option value="Daviplata">Daviplata</option>
+          <option value="Préstamos">Préstamos</option>
+          <option value="Inversiones">Inversiones</option>
+          <option value="Nubank">Nubank</option>
+          <option value="Mastercard black">Mastercard black</option>
+          <option value="Visa signature">Visa signature</option>
+          <option value="Nequi">Nequi</option>
+          <option value="Préstamos personales">Préstamos personales</option>
         </select>
       </div>
-      <div class="field"><label>Categoría</label>
+      <div class="field"><label>Categoría</label placeholder="Salario">
         <select id="ing-cat">
+          <option value="Salario">Salario</option>
+          <option value="Subsidio de transporte">Subsidio de transporte</option>
+          <option value="Auxilios">Auxilios</option>
+          <option value="Prima de servicios">Prima de servicios</option>
+          <option value="Cesantías">Cesantías</option>
+          <option value="Intereses a las cesantías">Intereses a las cesantías</option>
+          <option value="Intereses por ahorros">Intereses por ahorros</option>
+          <option value="Intereses por préstamo">Intereses por Préstamo</option>
+          <option value="Rendimientos">Rendimientos</option>
+          <option value="Abono beneficios">Abono beneficios</option>
           <option value="Ventas">Ventas</option>
-          <option value="Servicios">Servicios</option>
           <option value="Otros ingresos">Otros ingresos</option>
+          <option value="Reembolso">Reembolso</option>
         </select>
       </div>
       <div class="field span-3"><label>Observaciones</label><input type="text" id="ing-obs" placeholder="Opcional"></div>
@@ -384,30 +524,44 @@ tr:hover td{background:rgba(255,255,255,.02)}
       <div class="field"><label>Fecha</label><input type="date" id="mov-fecha"></div>
       <div class="field"><label>Tipo de movimiento</label>
         <select id="mov-tipo" onchange="updateMovTipo()">
-          <option value="Transferencia">Transferencia entre cuentas</option>
-          <option value="Pago factura">Pago de factura (CxP)</option>
-          <option value="Cobro cliente">Cobro a cliente (CxC)</option>
+          <option value="Transferencia">Transferencia</option>
+          <option value="Préstamo a otros">Préstamo a otros</option>
+          <option value="Favor">Favor</option>
         </select>
       </div>
       <div class="field"><label>Monto (COP)</label><input type="number" id="mov-monto" placeholder="0" min="0"></div>
       <div class="field"><label>Cuenta Origen <span style="color:var(--red)">(-)</span></label>
         <select id="mov-origen">
-          <option value="Cuenta bancaria">Cuenta bancaria</option>
-          <option value="Caja (efectivo)">Caja (efectivo)</option>
-          <option value="Tarjeta crédito">Tarjeta crédito</option>
-          <option value="Tarjeta débito">Tarjeta débito</option>
-          <option value="Nequi / Daviplata">Nequi / Daviplata</option>
-          <option value="Préstamo">Préstamo</option>
+          <option value="Visa signature">Visa signature</option>
+            <option value="Mastercard black">Mastercard black</option>
+            <option value="Terpel Colpatria">Terpel Colpatria</option>
+            <option value="Débito Bancolombia">Débito Bancolombia</option>
+            <option value="Débito Davivienda">Débito Davivienda</option>
+            <option value="Efectivo">Efectivo</option>
+            <option value="Nequi">Nequi</option>
+            <option value="Daviplata">Daviplata</option>
+            <option value="Claro Pay">Claro Pay</option>
+            <option value="Nubank">Nubank</option>
+            <option value="Préstamos">Préstamos</option>
+            <option value="Préstamos personales">Préstamos personales</option>
+            <option value="Inversiones">Inversiones</option>
         </select>
       </div>
       <div class="field"><label>Cuenta Destino <span style="color:var(--accent)">( +)</span></label>
         <select id="mov-destino">
-          <option value="Cuenta bancaria">Cuenta bancaria</option>
-          <option value="Caja (efectivo)">Caja (efectivo)</option>
-          <option value="Tarjeta crédito">Tarjeta crédito</option>
-          <option value="Tarjeta débito">Tarjeta débito</option>
-          <option value="Nequi / Daviplata">Nequi / Daviplata</option>
-          <option value="Préstamo">Préstamo</option>
+          <option value="Visa signature">Visa signature</option>
+            <option value="Mastercard black">Mastercard black</option>
+            <option value="Terpel Colpatria">Terpel Colpatria</option>
+            <option value="Débito Bancolombia">Débito Bancolombia</option>
+            <option value="Débito Davivienda">Débito Davivienda</option>
+            <option value="Efectivo">Efectivo</option>
+            <option value="Nequi">Nequi</option>
+            <option value="Daviplata">Daviplata</option>
+            <option value="Claro Pay">Claro Pay</option>
+            <option value="Nubank">Nubank</option>
+            <option value="Préstamos">Préstamos</option>
+            <option value="Préstamos personales">Préstamos personales</option>
+            <option value="Inversiones">Inversiones</option>
         </select>
       </div>
       <div class="field"><label>Referencia</label><input type="text" id="mov-ref" placeholder="Número de transacción"></div>
@@ -436,14 +590,51 @@ tr:hover td{background:rgba(255,255,255,.02)}
     <div class="form-grid cols-3">
       <div class="field"><label>Proveedor</label><input type="text" id="ins-proveedor" placeholder="Nombre del proveedor"></div>
       <div class="field"><label>Código ítem</label><input type="text" id="ins-codigo" placeholder="Ej: 80"></div>
-      <div class="field"><label>Nombre del insumo</label><input type="text" id="ins-nombre" placeholder="Ej: COCA COLA"></div>
+      <div class="field"><label>Nombre del insumo</label><input type="text" id="ins-nombre" placeholder="Ej: Arroz"></div>
       <div class="field"><label>Categoría</label>
         <select id="ins-cat">
-          <option value="Bebidas">Bebidas</option>
-          <option value="Alimentos">Alimentos</option>
-          <option value="Insumos">Insumos</option>
-          <option value="Servicios">Servicios</option>
-          <option value="Otros">Otros</option>
+          <option value="Bus">Bus</option>
+          <option value="Taxi o Plataformas">Taxi o Plataformas</option>
+          <option value="Metro">Metro</option>
+          <option value="Gasolina">Gasolina</option>
+          <option value="Parqueadero">Parqueadero</option>
+          <option value="Mantenimiento">Mantenimiento</option>
+          <option value="SOAT">SOAT</option>
+          <option value="Revisión Técnico mecánica">Revisión Técnico mecánica</option>
+          <option value="Bicicleta">Bicicleta</option>
+          <option value="Tiquetes aéreos">Tiquetes aéreos</option>
+          <option value="Mercado">Mercado</option>
+          <option value="Carne">Carne</option>
+          <option value="Fruver">Fruver</option>
+          <option value="Comida por fuera">Comida por fuera</option>
+          <option value="Mecato">Mecato</option>
+          <option value="Servicios públicos">Servicios públicos</option>
+          <option value="Internet">Internet</option>
+          <option value="Línea celular">Línea celular</option>
+          <option value="Arriendo">Arriendo</option>
+          <option value="Aseo hogar">Aseo hogar</option>
+          <option value="Implementos hogar">Implementos hogar</option>
+          <option value="Mascota">Mascota</option>
+          <option value="Gimnasio">Gimnasio</option>
+          <option value="Medicamentos - Citas">Medicamentos - Citas</option>
+          <option value="Aseo personal">Aseo personal</option>
+          <option value="Motilada">Motilada</option>
+          <option value="Streaming">Streaming</option>
+          <option value="Clase de baile">Clase de baile</option>
+          <option value="Cine - teatro - eventos">Cine - teatro - eventos</option>
+          <option value="Playstation">Playstation</option>
+          <option value="Xbox">Xbox</option>
+          <option value="Tecnología">Tecnología</option>
+          <option value="Ocio y otros">Ocio y otros</option>
+          <option value="Intereses por deuda">Intereses por deuda</option>
+          <option value="Impuestos">Impuestos</option>
+          <option value="Cuota de manejo">Cuota de manejo</option>
+          <option value="Seguro de vida">Seguro de vida</option>
+          <option value="EPS">EPS</option>
+          <option value="AFP">AFP</option>
+          <option value="Regalo">Regalo</option>
+          <option value="Ropa">Ropa</option>
+          <option value="Ajuste">Ajuste</option>
         </select>
       </div>
       <div class="field"><label>Subcategoría (opcional)</label><input type="text" id="ins-subcat" placeholder="Ej: Gaseosas, Carnes..."></div>
@@ -589,11 +780,48 @@ tr:hover td{background:rgba(255,255,255,.02)}
     <div class="field">
       <label>Categoría</label>
       <select id="modal-cat-sel">
-        <option value="Bebidas">Bebidas</option>
-        <option value="Alimentos">Alimentos</option>
-        <option value="Insumos">Insumos</option>
-        <option value="Servicios">Servicios</option>
-        <option value="Otros">Otros</option>
+        <option value="Bus">Bus</option>
+        <option value="Taxi o Plataformas">Taxi o Plataformas</option>
+        <option value="Metro">Metro</option>
+        <option value="Gasolina">Gasolina</option>
+        <option value="Parqueadero">Parqueadero</option>
+        <option value="Mantenimiento">Mantenimiento</option>
+        <option value="SOAT">SOAT</option>
+        <option value="Revisión Técnico mecánica">Revisión Técnico mecánica</option>
+        <option value="Bicicleta">Bicicleta</option>
+        <option value="Tiquetes aéreos">Tiquetes aéreos</option>
+        <option value="Mercado">Mercado</option>
+        <option value="Carne">Carne</option>
+        <option value="Fruver">Fruver</option>
+        <option value="Comida por fuera">Comida por fuera</option>
+        <option value="Mecato">Mecato</option>
+        <option value="Servicios públicos">Servicios públicos</option>
+        <option value="Internet">Internet</option>
+        <option value="Línea celular">Línea celular</option>
+        <option value="Arriendo">Arriendo</option>
+        <option value="Aseo hogar">Aseo hogar</option>
+        <option value="Implementos hogar">Implementos hogar</option>
+        <option value="Mascota">Mascota</option>
+        <option value="Gimnasio">Gimnasio</option>
+        <option value="Medicamentos - Citas">Medicamentos - Citas</option>
+        <option value="Aseo personal">Aseo personal</option>
+        <option value="Motilada">Motilada</option>
+        <option value="Streaming">Streaming</option>
+        <option value="Clase de baile">Clase de baile</option>
+        <option value="Cine - teatro - eventos">Cine - teatro - eventos</option>
+        <option value="Playstation">Playstation</option>
+        <option value="Xbox">Xbox</option>
+        <option value="Tecnología">Tecnología</option>
+        <option value="Ocio y otros">Ocio y otros</option>
+        <option value="Intereses por deuda">Intereses por deuda</option>
+        <option value="Impuestos">Impuestos</option>
+        <option value="Cuota de manejo">Cuota de manejo</option>
+        <option value="Seguro de vida">Seguro de vida</option>
+        <option value="EPS">EPS</option>
+        <option value="AFP">AFP</option>
+        <option value="Regalo">Regalo</option>
+        <option value="Ropa">Ropa</option>
+        <option value="Ajuste">Ajuste</option>
       </select>
     </div>
     <div class="btn-group" style="margin-top:20px">
@@ -629,6 +857,7 @@ function loadState() {
   // Set default dates
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('ing-fecha').value = today;
+  document.getElementById('mg-fecha').value  = today;
   document.getElementById('mov-fecha').value = today;
   // Set default report range (current month)
   const now = new Date();
@@ -749,6 +978,7 @@ function lookupCategory(nit, cod, desc) {
   if(/COCA|PEPSI|AGUA|JUGO|LIMONADA|JARRA|HATSU|PILSEN|CORONA|AGUILA|STELLA|TINTO|CERVEZA|GASEOSA|BEBIDA/.test(d)) return 'Bebidas';
   if(/SOLOMITO|BANDEJA|PAISA|CAZUELA|POLLO|CHICHARRÓN|COSTICHI|AREPITA|TALLAR|POSTRE|PAPA|RES|CARNE|ENSALADA/.test(d)) return 'Alimentos';
   if(/ADICION|INSUMO|EMPAQUE|BOLSA|SERVILLETA/.test(d)) return 'Insumos';
+  if(/104 PIERNA TRASERA|7 TABLA CAPON|110 TOCINO CARNE|CABEZA CAÑON O BONDIOLA|216 TORTA DE CARNE PARA HAMBURGUESA X UNIDAD X 130 GR/.test(d)) return 'Carne';
   return 'Otros';
 }
 
@@ -922,7 +1152,7 @@ async function saveInsumo() {
 
 function clearInsumoForm() {
   ['ins-proveedor','ins-codigo','ins-nombre','ins-subcat','ins-um'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('ins-cat').value = 'Bebidas';
+  document.getElementById('ins-cat').value = 'Bus';
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -940,7 +1170,7 @@ function renderHistFacturas() {
       <td>${f.items.length}</td>
       <td class="amount-neg">${fmtCOP(f.header.total)}</td>
       <td>${f.header.cuenta}</td>
-      <td><span class="chip chip-green" style="font-size:10px">✓ DIAN</span></td>
+      <td>${f.header.manual ? '<span class="chip chip-orange" style="font-size:10px">✎ Manual</span>' : '<span class="chip chip-green" style="font-size:10px">✓ DIAN</span>'}</td>
     </tr>`).join('');
 }
 
@@ -1316,6 +1546,131 @@ function preloadDemoInsumos() {
   ];
   STATE.insumos = demo;
   saveState();
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// GASTO MANUAL
+// ═══════════════════════════════════════════════════════════════
+let manualItems = [];
+
+function switchFactTab(tab) {
+  document.getElementById('fact-xml-panel').style.display    = tab === 'xml'    ? 'block' : 'none';
+  document.getElementById('fact-manual-panel').style.display = tab === 'manual' ? 'block' : 'none';
+  document.getElementById('tab-xml').classList.toggle('active',    tab === 'xml');
+  document.getElementById('tab-manual').classList.toggle('active', tab === 'manual');
+  if(tab === 'manual' && manualItems.length === 0) addManualItem();
+}
+
+function addManualItem() {
+  const idx = manualItems.length;
+  manualItems.push({ cod:'', desc:'', cant:1, vUnit:0, total:0, cat:'Otros' });
+  renderManualItems();
+}
+
+function removeManualItem(idx) {
+  manualItems.splice(idx, 1);
+  renderManualItems();
+}
+
+function renderManualItems() {
+  const cats = ['Bus','Taxi o Plataformas','Metro','Gasolina','Parqueadero','Mantenimiento','SOAT','Revisión Técnico mecánica','Bicicleta','Tiquetes aéreos','Mercado','Carne','Fruver','Comida por fuera','Mecato','Servicios públicos','Internet','Línea celular','Arriendo','Aseo hogar','Implementos hogar','Mascota','Gimnasio','Medicamentos - Citas','Aseo personal','Motilada','Streaming','Clase de baile','Cine - teatro - eventos','Playstation','Xbox','Tecnología','Ocio y otros','Intereses por deuda','Impuestos','Cuota de manejo','Seguro de vida','EPS','AFP','Regalo','Ropa','Ajuste'];
+  const catOpts = cats.map(c => `<option value="${c}">${c}</option>`).join('');
+  document.getElementById('mg-items-body').innerHTML = manualItems.map((it, idx) => `
+    <tr>
+      <td><input type="text" value="${it.cod}" oninput="updateMI(${idx},'cod',this.value)"
+          style="width:70px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:6px 8px;color:var(--text);font-size:12px;font-family:var(--mono)"></td>
+      <td><input type="text" value="${it.desc}" oninput="updateMI(${idx},'desc',this.value)" placeholder="Descripción del ítem"
+          style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:6px 8px;color:var(--text);font-size:13px"></td>
+      <td><input type="number" value="${it.cant}" min="0.01" step="0.01" oninput="updateMI(${idx},'cant',+this.value)"
+          style="width:65px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:6px 8px;color:var(--text);font-size:13px;text-align:right"></td>
+      <td><input type="number" value="${it.vUnit}" min="0" oninput="updateMI(${idx},'vUnit',+this.value)"
+          style="width:110px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:6px 8px;color:var(--text);font-size:13px;text-align:right;font-family:var(--mono)"></td>
+      <td style="font-family:var(--mono);color:var(--red);text-align:right;padding-right:12px">${fmtCOP(it.total)}</td>
+      <td>
+        <select onchange="updateMI(${idx},'cat',this.value)" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:6px 8px;color:var(--text);font-size:12px">
+          ${cats.map(c => `<option value="${c}"${c===it.cat?' selected':''}>${c}</option>`).join('')}
+        </select>
+      </td>
+      <td><button class="btn btn-sm btn-danger" onclick="removeManualItem(${idx})">✕</button></td>
+    </tr>`).join('');
+  updateManualTotal();
+}
+
+function updateMI(idx, field, val) {
+  manualItems[idx][field] = val;
+  if(field === 'cant' || field === 'vUnit') {
+    manualItems[idx].total = manualItems[idx].cant * manualItems[idx].vUnit;
+  }
+  // Auto-lookup category from maestro
+  if(field === 'cod' || field === 'desc') {
+    const cat = lookupCategory('', manualItems[idx].cod, manualItems[idx].desc);
+    manualItems[idx].cat = cat;
+  }
+  renderManualItems();
+}
+
+function updateManualTotal() {
+  const total = manualItems.reduce((s, it) => s + (it.total || 0), 0);
+  document.getElementById('mg-total-display').textContent = fmtCOP(total);
+}
+
+async function saveGastoManual() {
+  const emisorRS = document.getElementById('mg-emisorRS').value.trim();
+  const emisorNC = document.getElementById('mg-emisorNC').value.trim();
+  const nit      = document.getElementById('mg-nit').value.trim();
+  const dir      = document.getElementById('mg-dir').value.trim();
+  const numero   = document.getElementById('mg-numero').value.trim() || ('MAN-' + Date.now());
+  const fecha    = document.getElementById('mg-fecha').value;
+  const cuenta   = document.getElementById('mg-cuenta').value;
+  const obs      = document.getElementById('mg-obs').value.trim();
+
+  if(!fecha)    { toast('La fecha es requerida', 'error'); return; }
+  if(!emisorRS && !emisorNC) { toast('Ingresa al menos el nombre del proveedor', 'error'); return; }
+  const validItems = manualItems.filter(it => it.desc && it.total > 0);
+  if(validItems.length === 0) { toast('Agrega al menos un ítem con descripción y valor', 'error'); return; }
+
+  const total = validItems.reduce((s, it) => s + it.total, 0);
+
+  const header = {
+    numero, fecha, emisorRS, emisorNC, emisorNIT: nit,
+    emisorDir: dir, total, cuenta, cufe: '', obs, manual: true,
+    dianStatus: 'Manual — sin DIAN',
+    fechaRegistro: new Date().toISOString()
+  };
+  const items = validItems.map((it, i) => ({
+    cod: it.cod, desc: it.desc, cant: it.cant,
+    vUnit: it.vUnit, base: it.total, inc: 0, total: it.total, cat: it.cat
+  }));
+
+  // Check duplicate numero
+  if(STATE.facturas.find(f => f.header.numero === numero)) {
+    toast('Ya existe un registro con ese número', 'error'); return;
+  }
+
+  STATE.facturas.push({ header, items });
+  saveState();
+
+  if(STATE.config.scriptUrl) {
+    const r = await gasCall('saveFactura', { data: { header, items } });
+    if(r.ok) toast('Gasto manual guardado en Sheets ✓', 'success');
+    else toast('Error Sheets: ' + r.error, 'error');
+  } else {
+    toast('Gasto manual guardado localmente', 'info');
+  }
+  clearManualForm();
+  renderHistFacturas();
+}
+
+function clearManualForm() {
+  ['mg-emisorRS','mg-emisorNC','mg-nit','mg-dir','mg-numero','mg-obs'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('mg-fecha').value = new Date().toISOString().split('T')[0];
+  document.getElementById('mg-cuenta').value = 'Caja (efectivo)';
+  manualItems = [];
+  addManualItem();
+  updateManualTotal();
 }
 
 // ── Boot ──
